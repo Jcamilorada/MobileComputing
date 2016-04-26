@@ -12,26 +12,21 @@ namespace CardGame.Model
     {
         public event EventHandler CanExecuteChanged;
 
+        private CardGameViewModel _CardGameViewModel;
+
+        public SelectCardCommand(CardGameViewModel  cardViewModel)
+        {
+            this._CardGameViewModel = cardViewModel;
+        }
+
         public bool CanExecute(object parameter)
         {
-            return ((Card)parameter).IsOpen == false;
+            return true;
         }
 
         public void Execute(object parameter)
-        {
-            ((Card)parameter).SelectCard();
-            CardGameViewModel.ChangeSelection((Card)parameter);
-
-            RaiseCanExecuteChanged();
-        }
-
-        public void RaiseCanExecuteChanged()
-        {
-            var handler = CanExecuteChanged;
-            if (handler != null)
-            {
-                handler(this, EventArgs.Empty);
-            }
+        { 
+            _CardGameViewModel.UpdateSelection(((Card)parameter));
         }
     }
 }

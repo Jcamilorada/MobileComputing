@@ -10,38 +10,37 @@ namespace CardGame.Model
 {
     public class Card : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public int Id { get; set; }
-        public int Row { get; set; }
-        public int Column { get; set; }
-        public bool IsOpen { get; set; }
-        public ICommand SelectCardCommand { get; set; }
+        public Color ColorType { get; }
+
+        public Card(int id, string color, Color ColorType)
+        {
+            this.Id = id;
+            this.Color = color;
+            this.IsOpen = false;
+            this.ColorType = ColorType;
+        }
+
+        private bool isOpen;
+        public bool IsOpen
+        {
+            get { return isOpen; }
+            set { isOpen = value; NotifyPropertyChanged("Color"); }
+        }
+
 
         private String _Color;
         public String Color
         {
-            get { return _Color; }
+            get
+            {
+                return IsOpen ? _Color : "Gray";
+            }
             set
             {
                 _Color = value;
-                NotifyPropertyChanged("Color");
             }
-        }
-
-        public void SelectCard()
-        {
-            this.Color = "Gray";
-            this.IsOpen = true;
-        }
-
-        public Card(int id, int row, int column, string color)
-        {
-            this.Id = id;
-            this.Row = row;
-            this.Column = column;
-            this.Color = color;
-            this.IsOpen = false;
-
-            SelectCardCommand = new SelectCardCommand();
         }
 
         private void NotifyPropertyChanged(String propertyName)
@@ -51,7 +50,5 @@ namespace CardGame.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

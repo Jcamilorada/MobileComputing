@@ -89,6 +89,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include=".gitignore" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -103,6 +104,8 @@
     </Compile>
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\CardGameModel.cs" />
+    <Compile Include="Model\Color.cs" />
+    <Compile Include="Model\Player.cs" />
     <Compile Include="Model\SelectCardCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
