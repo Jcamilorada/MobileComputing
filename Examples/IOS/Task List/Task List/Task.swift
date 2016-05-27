@@ -8,12 +8,12 @@
 
 import UIKit
 
-class Task: NSObject {
-    let name:String
-    let desc:String
+class Task  {
+    var name:String
+    var desc:String
     
-    init(name:String, desc:String) {
-        self.name = name
-        self.desc = desc
+    init(name:String, desc:String){
+        self.name = name;
+        self.desc = desc;
     }
 }

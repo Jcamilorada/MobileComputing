@@ -10,6 +10,7 @@ import UIKit
 class SecondViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var desTextField: UITextField!
+    private var taskManager = TaskManager()
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -17,10 +18,10 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func addTask(sender: UIButton) {
-        TaskManager.addTask(nameTextField.text!, desc: desTextField.text!)
-        self.view.endEditing(true)
+        taskManager.addTask(nameTextField.text!, desc: desTextField.text!)
         nameTextField.text = ""
         desTextField.text = ""
+        self.view.endEditing(true)
         self.tabBarController!.selectedIndex = 0;
     }
     

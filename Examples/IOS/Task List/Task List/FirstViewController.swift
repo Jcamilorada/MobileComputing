@@ -11,21 +11,23 @@ import UIKit
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    private var taskManager = TaskManager()
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TaskManager.tasks.count
+        return taskManager.count()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "test")
-        cell.textLabel!.text = TaskManager.tasks[indexPath.row].name
-        cell.detailTextLabel!.text = TaskManager.tasks[indexPath.row].desc
+        let cell:CustomTableViewCell = tableView.dequeueReusableCellWithIdentifier("CustomCell") as! CustomTableViewCell
+        let task = taskManager.getTask(indexPath.row)
+        cell.nameLabel!.text = task.name
+        cell.descriptionLabel!.text = task.desc
         return cell
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete{
-            TaskManager.removeTask(indexPath.row)
+            taskManager.removeTask(indexPath.row)
             tableView.reloadData()
         }
     }
